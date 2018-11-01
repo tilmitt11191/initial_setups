@@ -56,5 +56,12 @@ gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
 gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'org.gnome.Software.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop']"
 
 
+echo "####set gnome-terminal autostart"
+gnome-terminal --geometry=94*47+0+0
+[ ! -e $HOME/.config/autostart ] && mkdir -p $HOME/.config/autostart
+[ -e $HOME/.config/autostart/gnome-terminal.desktop ] && mv $HOME/.config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop.org
+ln -s $HOME/.dotfiles/etc_ubuntu/config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
+
+
 cd $INITIALDIR
 exit 0

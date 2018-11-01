@@ -5,7 +5,7 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 
-
+echo "####dont use. mearge to etc_ubuntu.sh"
 
 
 

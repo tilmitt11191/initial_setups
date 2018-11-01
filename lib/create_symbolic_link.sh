@@ -24,5 +24,6 @@ ln -s `pwd`/lib/pushgitfiles $HOME/bin/
 sudo chmod +x $HOME/bin/pushgitfiles
 export PATH=$HOME/bin:$PATH
 
+
 cd $INITIALDIR
 exit 0
