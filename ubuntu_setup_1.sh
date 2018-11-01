@@ -12,17 +12,18 @@ case $ANSWER in
 esac
 
 echo "####install zsh and vim"
-sudo apt -y update && sudo apt -y dist-upgrade
-dpkg -l zsh | grep -E "^i.+[ \t]+zsh" > /dev/null
-if [ $? -ne 0 ];then
-	m="zsh not installed. sudo apt install -y zsh."
-	echo "$m"
-	sudo apt install -y zsh
-else
-	m="zsh already installed."
-	echo "$m"
-fi
-
+PACKAGES=(zsh vim)
+for package in ${PACKAGES[@]}; do
+	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
+	if [ $? -ne 0 ];then
+		m="$package not installed. sudo apt-get install -y $package."
+		echo "$m"
+		sudo apt install -y $package
+	else
+		m="$package already installed."
+		echo "$m"
+	fi
+done
 
 echo "####chsh -s /bin/zsh"
 #chsh -s /bin/zsh || (echo "####failed to chsh. exit 1" exit 1)
