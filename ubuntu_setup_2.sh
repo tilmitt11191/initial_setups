@@ -89,7 +89,7 @@ $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable
 ([ DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
 #__CO__
 if [ $"{FLAG_PYTHON}" ]; then
-	bash lib/install_python
+	bash lib/install_python.sh
 fi
 #LANG=C xdg-user-dirs-gtk-update
 #sudo add-apt-repository -y -n ppa:sicklylife/ppa #for japanese
