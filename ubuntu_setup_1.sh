@@ -4,21 +4,6 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-echo "####install zsh and vim"
-PACKAGES=(zsh vim)
-for package in ${PACKAGES[@]}; do
-	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
-	if [ $? -ne 0 ];then
-		m="$package not installed. sudo apt-get install -y $package."
-		echo "$m"
-		sudo apt install -y $package
-	else
-		m="$package already installed."
-		echo "$m"
-	fi
-done
-
-
 echo -n "install prezto? [Y/n] default[y]:"
 read ANSWER
 case $ANSWER in
@@ -26,8 +11,19 @@ case $ANSWER in
 	* ) INSTALL_PREZTO=true;;
 esac
 
-#sudo apt -y update && sudo apt -y dist-upgrade
-#sudo apt -y install zsh
+echo "####install zsh and vim"
+sudo apt -y update && sudo apt -y dist-upgrade
+dpkg -l zsh | grep -E "^i.+[ \t]+zsh" > /dev/null
+if [ $? -ne 0 ];then
+	m="zsh not installed. sudo apt install -y zsh."
+	echo "$m"
+	sudo apt install -y zsh
+else
+	m="zsh already installed."
+	echo "$m"
+fi
+
+
 echo "####chsh -s /bin/zsh"
 #chsh -s /bin/zsh || (echo "####failed to chsh. exit 1" exit 1)
 chsh -s /bin/zsh || exit 1
