@@ -1,5 +1,2 @@
-main() {
-	echo "aaa"
-}
-
-main
+#!/bin/env bash
+echo "aaa"
