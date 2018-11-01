@@ -73,8 +73,9 @@ ln -s lib/pushgitfiles $HOME/bin/pushgitfiles
 ($ADD_JAPANESE_PACKAGES && bash lib/add_japanese_packages.sh && echo "####succeed to add japanese packages") || (echo "####failed to add japanese packages; exit1" ; exit 1)
 ($INSTALL_APT_PACKAGES && bash lib/install_apt_packages.sh && echo "####succeed to install apt packages") || (echo "####failed to install apt packages; exit 1"; exit 1)
 $SWAP_KEY && bash lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
-$ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "s####ucceed to enable hibernate"
+$ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
 ([ DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
+bash lib/download_dotfiles.sh
 
 
 #LANG=C xdg-user-dirs-gtk-update
