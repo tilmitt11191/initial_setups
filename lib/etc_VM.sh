@@ -4,6 +4,7 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
+echo "bash install_VoxLinuxAdditions.sh after insert CD and reboot"
 
 bash create_shared_dirs_symbolic_link.sh
 WIN_HOME=$HOME/c/Users/tilmi
