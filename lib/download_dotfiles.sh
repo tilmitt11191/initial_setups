@@ -4,7 +4,7 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-
+if [ d ]
 git clone https://github.com/tilmitt11191/dotfiles $HOME/.dotfiles
 
 

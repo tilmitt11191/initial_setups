@@ -4,6 +4,7 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
+if [ $# -ne 2 ];then;echo"####lack of argument"
 
 DOTFILES=(vimrc vim tmux.conf fonts)
 for file in ${DOTFILES[@]}; do
@@ -13,7 +14,7 @@ for file in ${DOTFILES[@]}; do
 done
 
 ##apply fonts
-fc-cache -fv
+#fc-cache -fv
 
 cd $INITIALDIR
 exit 0
