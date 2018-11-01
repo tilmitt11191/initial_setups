@@ -4,6 +4,19 @@ echo "`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
+FLAG_COMMON=true
+FLAG_UBUNTU=false
+FLAG_VM=false
+FLAG_PYTHON=false
+FLAG_RUBY=false
+
+if [ `hostname` = "ubuntusetuptest" ]; then
+	FLAG_UBUNTU=true
+	FLAG_VM=true
+	FLAG_PYTHON=true
+	FLAG_RUBY=true
+fi
+
 
 echo -n "Change ubuntu settings such as power plan and dock icons? [Y/n] default[Y]:"
 read ANSWER
@@ -55,7 +68,7 @@ case $ANSWER in
 	* ) DELETE_DEFAULT_DOTFILES="true";;
 esac
 
-
+: <<'#__CO__'
 ##LANG=C xdg-user-dirs-gtk-update
 LANG=C xdg-user-dirs-update --force
 $CHANGE_UBUNTU_SETTINGS && bash lib/change_ubuntu_settings.sh && echo "####Change ubuntu settings such as power plan and dock icons"
@@ -67,7 +80,6 @@ CREATE_DIR="$HOME/lib"
 
 CREATE_DIR="$HOME/bin"
 [ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
-ln -s lib/pushgitfiles $HOME/bin/pushgitfiles
 
 ($ADD_APT_REPOSITORY && bash lib/add_apt_repositories_and_update.sh && echo "####succeed to add repositories") || (echo "####failed to add repositories; exit 1"; exit 1)
 ($ADD_JAPANESE_PACKAGES && bash lib/add_japanese_packages.sh && echo "####succeed to add japanese packages") || (echo "####failed to add japanese packages; exit1" ; exit 1)
@@ -75,7 +87,8 @@ ln -s lib/pushgitfiles $HOME/bin/pushgitfiles
 $SWAP_KEY && bash lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
 $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
 ([ DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
-
+#__CO__
+[ $"{FLAG_PYTHON}" ]; then bash lib/install_python
 #LANG=C xdg-user-dirs-gtk-update
 #sudo add-apt-repository -y -n ppa:sicklylife/ppa #for japanese
 #sudo add-apt-repository -y -n ppa:graphics-drivers/ppa #for NVIDIA Drivers
@@ -99,3 +112,7 @@ $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable
 cd $INITIALDIR
 echo "####`basename $0` finished. please reboot and answer dialog of dirname"
 exit 0
+
+
+: <<'#__CO__'
+#__CO__
