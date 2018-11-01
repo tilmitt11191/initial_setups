@@ -4,7 +4,7 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-if [ $# -ne 2 ];then;echo"####lack of argument"
+if [ $# != 1 ]; then echo "####lack of argument($#)"; exit 1; fi
 
 DOTFILES=(vimrc vim tmux.conf fonts)
 for file in ${DOTFILES[@]}; do
