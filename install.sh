@@ -1,2 +1,3 @@
 #!/bin/env bash
-echo "aaa"
+cd `dirname $0`
+bash ubuntu_setup_1.sh

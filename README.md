@@ -1,3 +1,3 @@
-mkdir $HOME/lib && sudo apt -y install wget
-
-bash -c "$(wget -P $HOME/lib/initial_setups/ https://github.com/tilmitt11191/initial_setups/blob/master/ubuntu_setup_1.sh -O -)"
+mkdir $HOME/lib && sudo apt -y install git
+git clone https://github.com/tilmitt11191/initial_setups $HOME/lib/initial_setups
+bash ~/$HOME/lib/initial_setups/install.sh
