@@ -4,6 +4,7 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
+#if linux
 
 echo "####install packages"
 PACKAGES=(build-essential libsm6 libxrender1)
@@ -33,7 +34,7 @@ eval "$(pyenv init -)"
 echo "####install anaconda"
 ANACONDA_VER=`pyenv install -l | grep anaconda | tail -n 2 | head -n 1`
 echo $ANACONDA_VER
-#pyenv install $ANACONDA_VER
+pyenv install $ANACONDA_VER
 pyenv rehash
 
 echo "####"
