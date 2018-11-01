@@ -1,5 +1,5 @@
 main() {
-	bash ubuntu_setup1.sh
+	echo "aaa"
 }
 
 main
