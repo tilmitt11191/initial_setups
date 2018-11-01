@@ -4,9 +4,11 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
+
 BOOTTIMEOUT=5
 SWAPPINESSTIME=10
 DOCKSIZE=24
+
 
 CONFFILE="/boot/grub/grub.cfg"
 sudo chmod 644 $CONFFILE
@@ -39,16 +41,21 @@ echo "after sed"
 cat $CONFFILE | grep "vm.swappiness = [0-9]*"
 
 
+#list-recursively > ~/tmp/gsettingslist
 echo "#### lock screen and auto suspend off"
 gsettings set org.gnome.desktop.lockdown disable-lock-screen true
 gsettings set org.gnome.desktop.session idle-delay 0
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type nothing
-gsettings set org.mate.power-manager sleep-computer-ac 0
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power button-sleep 'nothing'
+gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 
 
 echo "####set dock size $DOCKSIZE and delete unnecessary dock icons"
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
-gsettings list-recursively > ~/tmp/gsettingslist
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.Nautilus.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'firefox.desktop', 'org.gnome.Software.desktop', 'gnome-system-monitor_gnome-system-monitor.desktop']"
+
+
 
 
 
