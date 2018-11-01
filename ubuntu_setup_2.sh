@@ -97,5 +97,5 @@ $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable
 
 
 cd $INITIALDIR
-echo "####`basename $0` finished."
+echo "####`basename $0` finished. please reboot and answer dialog of dirname"
 exit 0

@@ -9,6 +9,9 @@ DATETIME=`date +%Y%m%d%H%M`
 [ -e $HOME/.dotfiles ] && mv $HOME/.dotfiles $HOME/.dotfiles.$DATETIME
 git clone https://github.com/tilmitt11191/dotfiles $HOME/.dotfiles
 
+##apply fonts
+fc-cache -fv
+
 
 cd $INITIALDIR
 exit 0
