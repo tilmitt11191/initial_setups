@@ -65,6 +65,10 @@ CREATE_DIR="$HOME/tmp"
 CREATE_DIR="$HOME/lib"
 [ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
 
+CREATE_DIR="$HOME/bin"
+[ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
+ln -s lib/pushgitfiles $HOME/bin/pushgitfiles
+
 ($ADD_APT_REPOSITORY && bash lib/add_apt_repositories_and_update.sh && echo "####succeed to add repositories") || (echo "####failed to add repositories; exit 1"; exit 1)
 ($ADD_JAPANESE_PACKAGES && bash lib/add_japanese_packages.sh && echo "####succeed to add japanese packages") || (echo "####failed to add japanese packages; exit1" ; exit 1)
 ($INSTALL_APT_PACKAGES && bash lib/install_apt_packages.sh && echo "####succeed to install apt packages") || (echo "####failed to install apt packages; exit 1"; exit 1)

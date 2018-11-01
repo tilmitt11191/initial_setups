@@ -4,7 +4,9 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-if [ d ]
+
+DATETIME=`date +%Y%m%d%H%M`
+[ -e $HOME/.dotfiles ] && mv $HOME/.dotfiles $HOME/.dotfiles.$DATETIME
 git clone https://github.com/tilmitt11191/dotfiles $HOME/.dotfiles
 
 

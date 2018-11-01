@@ -1,3 +1,6 @@
+#terminal position
+#terminal profile
+
 
 #cd ~/
 #mkdir lib
