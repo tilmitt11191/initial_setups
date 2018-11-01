@@ -88,7 +88,9 @@ $SWAP_KEY && bash lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
 $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
 ([ DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
 #__CO__
-[ $"{FLAG_PYTHON}" ]; then bash lib/install_python
+if [ $"{FLAG_PYTHON}" ]; then
+	bash lib/install_python
+fi
 #LANG=C xdg-user-dirs-gtk-update
 #sudo add-apt-repository -y -n ppa:sicklylife/ppa #for japanese
 #sudo add-apt-repository -y -n ppa:graphics-drivers/ppa #for NVIDIA Drivers
