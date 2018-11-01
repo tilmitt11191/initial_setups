@@ -53,18 +53,8 @@ gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-typ
 
 echo "####set dock size $DOCKSIZE and delete unnecessary dock icons"
 gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'org.gnome.N    autilus.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'firefo    x.desktop', 'org.gnome.Software.desktop', 'gnome-system-monitor_gnome-system    -monitor.desktop']"
+gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'org.gnome.Software.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop']"
 
 
-
-
-
-
-
-#set dock size 24
-#delete unuse appp icons
-#blank screen off
-#auto suspend off
-#show hidden file
 cd $INITIALDIR
 exit 0
