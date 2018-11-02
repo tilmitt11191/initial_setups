@@ -5,17 +5,28 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 PACKAGES=(git zsh vim)
-for package in ${PACKAGES[@]}; do
-	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
-	if [ $? -ne 0 ];then
-		m="$package not installed. sudo apt-get install -y $package."
-		echo "$m"
-		sudo apt install -y $package
-	else
-		m="$package already installed."
-		echo "$m"
-	fi
-done
+if [ "$(uname -a | grep Ubuntu)" ]; then
+	for package in ${PACKAGES[@]}; do
+		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
+		if [ $? -ne 0 ];then
+			m="$package not installed. sudo apt-get install -y $package."
+			echo "$m"
+			sudo apt install -y $package
+		else
+			m="$package already installed."
+			echo "$m"
+		fi
+	done
+fi
+
+: <<'#__CO__'
+if [ "$(uname -a | grep Cygwin)" ]; then
+	for package in ${PACKAGES[@]}; do
+		apt-cyg install $package
+	done
+fi
+#__CO__
+
 
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 setopt EXTENDED_GLOB
@@ -33,3 +44,7 @@ FONTS_DIR=$HOME/.fonts/other_fonts/Powerline_fonts_for_prezto
 
 cd $INITIALDIR
 exit 0
+
+
+: <<'#__CO__'
+#__CO__
