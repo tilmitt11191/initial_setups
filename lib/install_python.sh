@@ -45,7 +45,7 @@ alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
 
 
 echo "#### create python 3.7"
-conda create -n 3.7 python=3.7 anaconda
+conda create -n py3.7 python=3.7 anaconda
 
 
 cd $INITIALDIR
