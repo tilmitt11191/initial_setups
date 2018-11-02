@@ -6,6 +6,7 @@ cd `dirname $0`
 
 #if linux
 
+: <<'#__CO__'
 echo "####install packages"
 PACKAGES=(build-essential libsm6 libxrender1)
 for package in ${PACKAGES[@]}; do
@@ -31,13 +32,24 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 echo $PATH
 eval "$(pyenv init -)"
 
-echo "####install anaconda"
-ANACONDA_VER=`pyenv install -l | grep anaconda | tail -n 2 | head -n 1`
-echo $ANACONDA_VER
+
+ANACONDA_VER=`pyenv install -l | grep anaconda | tail -n 2 | head -n 1 | sed -e 's/^[ ]*//'`
+echo "####install anaconda $ANACONDA_VER"
 pyenv install $ANACONDA_VER
 pyenv rehash
+ln -s "$PYENV_ROOT/versions/$ANACONDA_VER" $PYENV_ROOT/versions/anaconda
+export PATH="$PYENV_ROOT/versions/anaconda/bin/:$PATH"
+chmod +x $PYENV_ROOT/versions/anaconda/bin/activate
+chmod +x $PYENV_ROOT/versions/anaconda/bin/deactivate
+alias activate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/activate"
+alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
 
-echo "####"
+
+#__CO__
+
+echo "#### create python 3.7"
+conda create -n 3.7 python=3.7 anaconda
+
 
 cd $INITIALDIR
 exit 0
