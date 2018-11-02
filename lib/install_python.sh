@@ -4,9 +4,8 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-#if linux
 
-: <<'#__CO__'
+#if linux
 echo "####install packages"
 PACKAGES=(build-essential libsm6 libxrender1)
 for package in ${PACKAGES[@]}; do
@@ -44,8 +43,6 @@ chmod +x $PYENV_ROOT/versions/anaconda/bin/deactivate
 alias activate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/activate"
 alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
 
-
-#__CO__
 
 echo "#### create python 3.7"
 conda create -n 3.7 python=3.7 anaconda
