@@ -11,7 +11,7 @@ git clone https://github.com/tilmitt11191/dotfiles $HOME/.dotfiles
 
 echo "####apply fonts"
 #cp -r $HOME/.dotfiles/fonts/* /user/share/fonts
-fc-cache -fv
+#fc-cache -fv
 
 
 cd $INITIALDIR
