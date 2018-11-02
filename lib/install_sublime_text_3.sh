@@ -8,7 +8,6 @@ cd `dirname $0`
 if [ "$(uname -a | grep -e "Ubuntu")" ]; then
 	echo "####this is ubuntu"
 
-: <<'#__CO__'
 	wget -qO - https://download.sublimetext.com/sublimehq-pub.gpg | sudo apt-key add -
 	sudo apt -y install apt-transport-https
 	echo "deb https://download.sublimetext.com/ apt/stable/" | sudo tee /etc/apt/sources.list.d/sublime-text.list
@@ -21,7 +20,7 @@ if [ "$(uname -a | grep -e "Ubuntu")" ]; then
 		mv $HOME/.config/sublime-text-3/Installed\ Packages $HOME/.config/sublime-text-3/org.Installed\ Packages
 		ln -s $HOME/.dotfiles/sublime_text/Installed\ Packages $HOME/.config/sublime-text-3/
 	fi
-#__CO__
+
 	PACKAGES=(ibus-mozc emacs-mozc)
 	for package in ${PACKAGES[@]}; do
 		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
