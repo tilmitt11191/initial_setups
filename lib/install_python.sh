@@ -5,20 +5,26 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 
-#if linux
 echo "####install packages"
 PACKAGES=(build-essential libsm6 libxrender1)
-for package in ${PACKAGES[@]}; do
-	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
-	if [ $? -ne 0 ];then
-		m="$package not installed. sudo apt-get install -y $package."
-		echo "$m"
-		sudo apt install -y $package
-	else
-		m="$package already installed."
-		echo "$m"
-	fi
-done
+if [ "$(uname -a | grep Ubuntu)" ]; then
+	for package in ${PACKAGES[@]}; do
+		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
+		if [ $? -ne 0 ];then
+			m="$package not installed. sudo apt-get install -y $package."
+			echo "$m"
+			sudo apt install -y $package
+		else
+			m="$package already installed."
+			echo "$m"
+		fi
+	done
+fi
+if [ "$(uname -a | grep Cygwin)" ]; then
+	for package in ${PACKAGES[@]}; do
+		apt-cyg install $package
+	done
+fi
 
 
 echo "####install pyenv"

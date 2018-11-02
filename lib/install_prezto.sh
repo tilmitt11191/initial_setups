@@ -19,20 +19,21 @@ if [ "$(uname -a | grep Ubuntu)" ]; then
 	done
 fi
 
-: <<'#__CO__'
 if [ "$(uname -a | grep Cygwin)" ]; then
 	for package in ${PACKAGES[@]}; do
 		apt-cyg install $package
 	done
 fi
-#__CO__
 
 
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-setopt EXTENDED_GLOB
-for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-	ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-done
+[ "$(uname -a | grep Cygwin)" ] && chmod -R +rwx $HOME/.zprezto
+if [ "$(uname -a | grep Ubuntu)" ]; then
+	setopt EXTENDED_GLOB
+	for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+		ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+	done
+fi
 
 cd "${ZDOTDIR:-$HOME}"/.zprezto
 git pull
