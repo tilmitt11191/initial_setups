@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+#!/usr/bin/env zsh
 
 echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
@@ -25,21 +25,18 @@ if [ "$(uname -a | grep Cygwin)" ]; then
 	done
 fi
 
-
-git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+#git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 [ "$(uname -a | grep Cygwin)" ] && chmod -R +rwx $HOME/.zprezto
-if [ "$(uname -a | grep Ubuntu)" ]; then
-	setopt EXTENDED_GLOB
-	for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-		ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
-	done
-fi
+setopt EXTENDED_GLOB
+for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
+  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+done
 
 cd "${ZDOTDIR:-$HOME}"/.zprezto
 git pull
 git submodule update --init --recursive
 
-FONTS_DIR=$HOME/.fonts/other_fonts/Powerline_fonts_for_prezto
+FONTS_DIR=$HOME/.fonts/other_fonts/for_powerline
 [ -d $FONTS_DIR ] && cd $FONTS_DIR && echo "####install fonts" && bash install.sh
 
 
