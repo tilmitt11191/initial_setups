@@ -12,7 +12,7 @@ DATETIME=`date +%Y%m%d%H%M`
 [ -e $HOME/.dotfiles ] && rm -rf $HOME/.dotfiles
 bash ./download_dotfiles.sh
 
-DOTFILES=(zshrc vimrc vim tmux.conf tmux fonts zpreztorc)
+DOTFILES=(zshrc vimrc vim tmux.conf tmux fonts zpreztorc zlogout)
 for file in ${DOTFILES[@]}; do
 	[ $1 == "backup" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
 	[ -e $HOME/.$file ] && rm -rf $HOME/.$file
