@@ -36,9 +36,13 @@ cd "${ZDOTDIR:-$HOME}"/.zprezto
 git pull
 git submodule update --init --recursive
 
-FONTS_DIR=$HOME/.fonts/other_fonts/for_powerline
-[ -d $FONTS_DIR ] && cd $FONTS_DIR && echo "####install fonts" && bash install.sh
-
+#FONTS_DIR=$HOME/.fonts/other_fonts/for_powerline
+git clone https://github.com/powerline/fonts.git --depth=1 $HOME/tmp/fonts_for_powerline
+# install
+cd $HOME/tmp/fonts_for_powerline/
+zsh install.sh
+# clean-up a bit
+rm -rf $HOME/.fonts/powerline/
 
 cd $INITIALDIR
 exit 0

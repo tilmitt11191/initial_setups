@@ -82,9 +82,9 @@ alias activate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/activate"
 alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
 
 
-echo "#### create python $INSTALL_PYTHON_VERSION as my_default"
-[ $IS_CYGWIN ] $HOME/../Anaconda3/Scripts/conda.exe create -ym -n my_default python=3.7
-[ $IS_LINUX ] && conda create -ym -n my_default python=$INSTALL_PYTHON_VERSION
+echo "#### create python $INSTALL_PYTHON_VERSION as py$INSTALL_PYTHON_VERSION"
+[ $IS_CYGWIN ] $HOME/../Anaconda3/Scripts/conda.exe create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
+[ $IS_LINUX ] && conda create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
 
 cd $INITIALDIR
 exit 0

@@ -8,9 +8,13 @@ if [ $# != 1 ]; then echo "####lack of argument($#)[Y/b/n]"; exit 1; fi
 
 
 DATETIME=`date +%Y%m%d%H%M`
-[ $1 == "backup" ] && [ -e $HOME/.dotfiles ] && mv -rf $HOME/.dotfiles $HOME/.dotfiles.$DATETIME
-[ -e $HOME/.dotfiles ] && rm -rf $HOME/.dotfiles
-bash ./download_dotfiles.sh
+if [ -e $HOME/.dotfiles ]; then
+	cd $HOME/.dotfiles
+	git pull
+	cd `dirname $0`
+else
+	bash ./download_dotfiles.sh
+fi
 
 DOTFILES=(zshrc vimrc vim tmux.conf tmux fonts zpreztorc zlogout)
 for file in ${DOTFILES[@]}; do
