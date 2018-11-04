@@ -23,7 +23,7 @@ else
 	bash ./download_dotfiles.sh
 fi
 
-DOTFILES=(zshrc vimrc vim tmux.conf tmux fonts zpreztorc zlogout)
+DOTFILES=(zshrc vimrc vim tmux.conf tmux zpreztorc zlogout)
 for file in ${DOTFILES[@]}; do
 	[ $1 == "backup" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
 	[ $1 == "no" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
