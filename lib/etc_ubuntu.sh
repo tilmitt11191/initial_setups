@@ -34,6 +34,9 @@ sudo systemctl enable dropbox
 sudo systemctl start dropbox
 #__CO__
 
+#cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
+#~/.dropbox-dist/dropboxd
+dropbox autostart
 
 cd $INITIALDIR
 exit 0
