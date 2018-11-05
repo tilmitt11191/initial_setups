@@ -25,7 +25,7 @@ if [ "$(uname -a | grep Cygwin)" ]; then
 	done
 fi
 
-#git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
+git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
 [ "$(uname -a | grep Cygwin)" ] && chmod -R +rwx $HOME/.zprezto
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
@@ -36,13 +36,13 @@ cd "${ZDOTDIR:-$HOME}"/.zprezto
 git pull
 git submodule update --init --recursive
 
-#FONTS_DIR=$HOME/.fonts/other_fonts/for_powerline
-git clone https://github.com/powerline/fonts.git --depth=1 $HOME/tmp/fonts_for_powerline
-# install
-cd $HOME/tmp/fonts_for_powerline/
+FONTS_DIR=$HOME/tmp/fonts_for_powerline
+[ -d $FONTS_DIR ] && rm -rf $FONTS_DIR
+git clone https://github.com/powerline/fonts.git --depth=1 $FONTS_DIR
+cd $FONTS_DIR
 zsh install.sh
 # clean-up a bit
-rm -rf $HOME/.fonts/powerline/
+rm -rf $FONTS_DIR
 
 cd $INITIALDIR
 exit 0
