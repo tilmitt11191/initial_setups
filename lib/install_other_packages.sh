@@ -4,8 +4,11 @@ echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
-go get github.com/motemen/ghq
-echo -e "[ghq]\n\troot = \$HOME/lib/ghq\nroot = \$HOME/lib/src"
+
+wget https://raw.github.com/aurora/rmate/master/rmate -P $HOME/lib/
+ln -s $HOME/lib/rmate $HOME/bin/rmate
+chmod +x $HOME/bin/rmate
+
 
 
 cd $INITIALDIR

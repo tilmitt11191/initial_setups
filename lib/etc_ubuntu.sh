@@ -22,9 +22,18 @@ cd `dirname $0`
 #sudo apt update
 #sudo apt -f install atom
 
-
-
-
+#
+### install autossh
+#sudo apt-get install gcc make
+#wget http://www.harding.motd.ca/autossh/autossh-1.4e.tgz -P ~/lib/autossh
+#cd ~/lib/autossh
+#tar -xf autossh-1.4e.tgz
+#cd autossh-1.4e
+#./configure
+#make
+#sudo make install
+ln -s $HOME/lib/autossh/autossh-1.4e/autossh $HOME/bin/autossh
+chmod +x $HOME/bin/autossh
 
 
 
