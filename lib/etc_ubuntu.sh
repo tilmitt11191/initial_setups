@@ -6,37 +6,27 @@ cd `dirname $0`
 
 
 ## install dropbox to ubuntu server 18.04
-: <<'#__CO__'
-sudo wget -O /usr/local/bin/dropbox "https://www.dropbox.com/download?dl=packages/dropbox.py"
-sudo chmod +x /usr/local/bin/dropbox
-dropbox
-echo "[Unit]
-Description=Dropbox Service
-After=network.target
-
-[Service]
-ExecStart=/bin/sh -c '/usr/local/bin/dropbox start'
-ExecStop=/bin/sh -c '/usr/local/bin/dropbox stop'
-PIDFile=${HOME}/.dropbox/dropbox.pid
-User=sk
-Group=sk
-Type=forking
-Restart=on-failure
-RestartSec=5
-StartLimitInterval=60s
-StartLimitBurst=3
-
-[Install]
-WantedBy=multi-user.target
-" | sudo tee -a > $HOME/tmp/test.txt
-sudo systemctl daemon-reload
-sudo systemctl enable dropbox
-sudo systemctl start dropbox
-#__CO__
-
 #cd ~ && wget -O - "https://www.dropbox.com/download?plat=lnx.x86_64" | tar xzf -
 #~/.dropbox-dist/dropboxd
-dropbox autostart
+#dropbox autostart
+
+## install atom
+#sudo apt -y install gconf2 gconf-service
+#sudo apt -y install gconf-editor
+#sudo add-apt-repository ppa:webupd8team/atom
+#sudo apt -y update
+#sudo apt -y -f install atom || sudo apt -y --fix-broken install
+
+#curl -sL https://packagecloud.io/AtomEditor/atom/gpgkey | sudo apt-key add -
+#sudo sh -c 'echo "deb [arch=amd64] https://packagecloud.io/AtomEditor/atom/any/ any main" > /etc/apt/sources.list.d/atom.list'
+#sudo apt update
+#sudo apt -f install atom
+
+
+
+
+
+
 
 cd $INITIALDIR
 exit 0
