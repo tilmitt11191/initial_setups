@@ -15,6 +15,7 @@ if [ "$(uname -a | grep -e "Ubuntu")" ]; then
 	sudo apt -y install sublime-text
 
 	if [ -e $HOME/.dotfiles/sublime_text ]; then
+		echo "##symbolic link from .dotfiles to .config/sublime-text-3/"
 		mv $HOME/.config/sublime-text-3/Packages $HOME/.config/sublime-text-3/org.Packages
 		ln -s $HOME/.dotfiles/sublime_text/Packages $HOME/.config/sublime-text-3/
 		mv $HOME/.config/sublime-text-3/Installed\ Packages $HOME/.config/sublime-text-3/org.Installed\ Packages

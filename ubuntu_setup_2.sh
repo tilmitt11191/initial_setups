@@ -5,10 +5,10 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 FLAG_COMMON=true
-FLAG_UBUNTU=false
-FLAG_VM=false
-FLAG_PYTHON=false
-FLAG_RUBY=false
+FLAG_UBUNTU=true
+FLAG_VM=""
+FLAG_PYTHON=true
+FLAG_RUBY=""
 
 if [ `hostname` = "ubuntusetuptest" ]; then
 	FLAG_UBUNTU=true
@@ -68,7 +68,6 @@ case $ANSWER in
 	* ) DELETE_DEFAULT_DOTFILES="true";;
 esac
 
-: <<'#__CO__'
 ##LANG=C xdg-user-dirs-gtk-update
 LANG=C xdg-user-dirs-update --force
 $CHANGE_UBUNTU_SETTINGS && bash lib/change_ubuntu_settings.sh && echo "####Change ubuntu settings such as power plan and dock icons"
@@ -87,7 +86,7 @@ CREATE_DIR="$HOME/bin"
 $SWAP_KEY && bash lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
 $ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
 ([ DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
-#__CO__
+
 if [ $"{FLAG_PYTHON}" ]; then
 	bash lib/install_python.sh
 fi

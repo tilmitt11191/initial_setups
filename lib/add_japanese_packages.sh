@@ -47,9 +47,10 @@ if [ $? -ne 0 ];then
 	exit 1
 fi
 
+
 sudo apt -y update && sudo apt -y dist-upgrade
 sudo apt -y install ubuntu-defaults-ja
-
+sudo apt -y install ibus-mozc
 
 cd $INITIALDIR
 exit 0
