@@ -4,8 +4,8 @@
 ARGS=""
 while test $# -gt 0
 do
-  ARGS="$ARGS ${1#/cygdrive/[a-zA-Z]}"; # Remove /cygdrive and disk letter from the path
-	  shift
-		done
+	ARGS="$ARGS ${1#/cygdrive/[a-zA-Z]}"; # Remove /cygdrive and disk letter from the path
+	shift
+done
 
-		/cygdrive/c/Program\ Files/Sublime\ Text\ 3/subl.exe $ARGS
+/cygdrive/c/Program\ Files/Sublime\ Text\ 3/subl.exe $ARGS
