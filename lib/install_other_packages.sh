@@ -5,7 +5,7 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 
-wget https://raw.github.com/aurora/rmate/master/rmate -P $HOME/lib/
+wget https://raw.github.com/aurora/rmate/master/rmate -P $HOME/lib/ --no-check-certificate
 ln -s $HOME/lib/rmate $HOME/bin/rmate
 chmod +x $HOME/bin/rmate
 
