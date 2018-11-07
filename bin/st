@@ -1,0 +1,11 @@
+#!/bin/bash
+# To create in [.babun/]cygwin/usr/local/bin/subl with chmod +x
+
+ARGS=""
+while test $# -gt 0
+do
+  ARGS="$ARGS ${1#/cygdrive/[a-zA-Z]}"; # Remove /cygdrive and disk letter from the path
+	  shift
+		done
+
+		/cygdrive/c/Program\ Files/Sublime\ Text\ 3/subl.exe $ARGS
