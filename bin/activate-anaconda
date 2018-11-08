@@ -1,0 +1,4 @@
+#!/usr/bin/env bash
+echo "\$i = $1"
+export PATH=$PYENV_ROOT/versions/anaconda/envs/$1/Lib/site-packages:$PATH
+source $PYENV_ROOT/versions/anaconda/bin/activate $1

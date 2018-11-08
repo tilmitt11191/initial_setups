@@ -17,4 +17,5 @@ echo "git commit -m $MESSAGE"
 git commit -m "$MESSAGE"
 
 git push --all google
+
 exit 0
