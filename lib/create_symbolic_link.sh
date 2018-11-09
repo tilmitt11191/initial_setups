@@ -15,7 +15,6 @@ case "${unameOut}" in
 	*) echo "##this is neither Cygwin nor Linux. exit 1" && exit 1;;
 esac
 
-: <<'#__CO__'
 case "$1" in
 	yes) echo "##mode delete previous dotfiles";;
 	backup) echo "##mode backup previous dotfiles as .***.$DATETIME";;
@@ -34,13 +33,12 @@ else
 fi
 
 DOTFILES=(zshrc vimrc vim tmux.conf tmux zpreztorc zlogout)
-#for file in ${DOTFILES[@]}; do
+for file in ${DOTFILES[@]}; do
 	[ $1 == "backup" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
 	[ $1 == "no" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
 	[ -e $HOME/.$file ] && rm -rf $HOME/.$file
 	ln -s $HOME/.dotfiles/$file $HOME/.$file
 done
-#__CO__
 
 pwd
 [ -e $HOME/bin/pushgitfiles ] && rm -rf $HOME/bin/pushgitfiles
