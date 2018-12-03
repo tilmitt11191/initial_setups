@@ -40,7 +40,7 @@ for file in ${DOTFILES[@]}; do
 	ln -s $HOME/.dotfiles/$file $HOME/.$file
 done
 
-pwd
+BINFILES=(pushgitfiles pushgooglegit pulldotfiles)
 [ -e $HOME/bin/pushgitfiles ] && rm -rf $HOME/bin/pushgitfiles
 ln -s `pwd`/../bin/pushgitfiles $HOME/bin/
 sudo chmod +x $HOME/bin/pushgitfiles
