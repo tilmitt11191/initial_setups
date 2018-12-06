@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
+INITIALDIR=`pwd`
 cd `dirname $0`
 
 
 DATETIME=`date +%Y%m%d%H%M`
-[ -e $HOME/.dotfiles ] && mv $HOME/.fonts $HOME/.fonts.$DATETIME
+[ -e $HOME/.fonts ] && mv $HOME/.fonts $HOME/.fonts.$DATETIME
 git clone https://github.com/tilmitt11191/my_fonts.git $HOME/.fonts
 [ "$(uname -a | grep Linux)" ] && fc-cache -fv
 

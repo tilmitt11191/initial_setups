@@ -18,6 +18,9 @@ for package in ${PACKAGES[@]}; do
 	fi
 done
 
+#apt-cyg install git make gcc-g++ mingw64-x86_64-gcc-g++
+
+
 
 cd $INITIALDIR
 exit 0
