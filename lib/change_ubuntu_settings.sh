@@ -36,11 +36,11 @@ echo "####set dock size $DOCKSIZE and delete unnecessary dock icons"
 /usr/bin/gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
 /usr/bin/gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'org.gnome.Software.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop', 'gnome-system-monitor_gnome-system-monitor.desktop']"
 
-echo "####set gnome-terminal autostart"
-gnome-terminal --geometry=94*47+0+0
-[ ! -e $HOME/.config/autostart ] && mkdir -p $HOME/.config/autostart
-[ -e $HOME/.config/autostart/gnome-terminal.desktop ] && mv $HOME/.config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop.org
-ln -s $HOME/.dotfiles/etc_ubuntu/config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
+# echo "####set gnome-terminal autostart"
+# gnome-terminal --geometry=94*47+0+0
+# [ ! -e $HOME/.config/autostart ] && mkdir -p $HOME/.config/autostart
+# [ -e $HOME/.config/autostart/gnome-terminal.desktop ] && mv $HOME/.config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop.org
+# ln -s $HOME/.dotfiles/etc_ubuntu/config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
 
 
 
