@@ -8,8 +8,8 @@ SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 cd $SCRIPT_DIR
 
 
-gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-gsettings set org.gnome.desktop.session idle-delay 0
+/usr/bin/gsettings set org.gnome.desktop.lockdown disable-lock-screen true
+/usr/bin/gsettings set org.gnome.desktop.session idle-delay 0
 sudo apt-get update -y
 sudo apt-get dist-upgrade -y
 env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
