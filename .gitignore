@@ -1,4 +1,5 @@
 *.swp
+*.deb
 !.gitignore
 
 /tmp/*
