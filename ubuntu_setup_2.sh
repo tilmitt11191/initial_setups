@@ -72,7 +72,8 @@ case $ANSWER in
 	* ) DELETE_DEFAULT_DOTFILES="true";;
 esac
 
-LANG=C xdg-user-dirs-update --force
+ssh-keygen -t rsa
+
 CREATE_DIR="$HOME/tmp"
 [ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
 
@@ -87,6 +88,11 @@ CREATE_DIR="$HOME/bin"
 ($INSTALL_APT_PACKAGES && bash -x lib/install_apt_packages.sh && echo "####succeed to install apt packages") || (echo "####failed to install apt packages; exit 1"; exit 1)
 $SWAP_KEY && bash -x lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
 $ENABLE_HIBERNATE && bash -x lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
+
+if [ "${FLAG_COMMON}" ]; then
+	bash -x lib/download_dotfiles.sh
+	bash -x lib/download_my_fonts.sh
+fi
 ([ $DELETE_DEFAULT_DOTFILES != "false" ] && bash -x lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
 
 if [ "${FLAG_PYTHON}" ]; then
