@@ -1,31 +1,15 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
-cd `dirname $0`
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
 
 
-BOOTTIMEOUT=5
 SWAPPINESSTIME=10
 DOCKSIZE=24
-
-
-CONFFILE="/boot/grub/grub.cfg"
-sudo chmod 644 $CONFFILE
-#GREP_RESULT=`cat $CONFFILE | grep "if \[ \""`
-#GREP_RESULT=`cat $CONFFILE | grep 'if \[ \"\${recordfail}\" = 1 \] ; then'`
-#GREP_RESULT=`cat $CONFFILE | grep -P "if \[ \"[\S]{recordfail}\" = 1 ] ; then"`
-GREP_RESULT=`cat $CONFFILE | grep "^  set timeout=[0-9]*"`
-echo -e "grep result\n$GREP_RESULT"
-if [ -n "$GREP_RESULT" ];then
-	echo "hit"
-	sudo ls -al $CONFFILE
-	sudo sed -i "s/set timeout=[0-9]*/set timeout=$BOOTTIMEOUT/g" $CONFFILE
-else
-	echo "not hit"
-fi
-sudo chmod 444 $CONFFILE
-
 
 CONFFILE="/etc/sysctl.conf"
 echo "####set vm.swappiness = 10"
@@ -42,9 +26,6 @@ cat $CONFFILE | grep "vm.swappiness = [0-9]*"
 
 
 #list-recursively > ~/tmp/gsettingslist
-echo "#### lock screen and auto suspend off"
-gsettings set org.gnome.desktop.lockdown disable-lock-screen true
-gsettings set org.gnome.desktop.session idle-delay 0
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
 gsettings set org.gnome.settings-daemon.plugins.power button-sleep 'nothing'
@@ -63,5 +44,11 @@ gnome-terminal --geometry=94*47+0+0
 ln -s $HOME/.dotfiles/etc_ubuntu/config/autostart/gnome-terminal.desktop $HOME/.config/autostart/gnome-terminal.desktop
 
 
+
+cd $INITIALDIR
+exit 0
+
+: <<'#__CO__'
+#__CO__
 cd $INITIALDIR
 exit 0

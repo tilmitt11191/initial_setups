@@ -5,6 +5,14 @@ INITIALDIR=`pwd`
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 cd $SCRIPT_DIR
 
+gsettings set org.gnome.desktop.lockdown disable-lock-screen true
+gsettings set org.gnome.desktop.session idle-delay 0
+sudo apt-get update -y
+sudo apt-get dist-upgrade -y
+env LANGUAGE=C LC_MESSAGES=C xdg-user-dirs-gtk-update
+sudo sh -c "sed -i -e 's/^GRUB_TIMEOUT=.\\+$/GRUB_TIMEOUT=3\nGRUB_RECORDFAIL_TIMEOUT=3/' /etc/default/grub"
+
+
 echo -n "install prezto? [Y/n] default[y]:"
 read ANSWER
 case $ANSWER in
@@ -33,7 +41,7 @@ chsh -s /bin/zsh || exit 1
 ($INSTALL_PREZTO && zsh lib/install_prezto.sh && echo "####succeed to install prezto") || (echo "####failed to install prezto; exit 1"; exit 1)
 
 echo -n "####Reboot to change shell to zsh"
-echo -n "####After rebooted, execute ubuntu_setup_2.sh. Press any key or press Ctrl+c to cancel reboot:"
+echo -n "####After rebooted, execute ubuntu_setup_2.sh. Press any key to reboot or press Ctrl+c to cancel reboot:"
 read
 
 

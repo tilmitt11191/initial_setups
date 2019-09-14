@@ -20,7 +20,7 @@ case "${unameOut}" in
 esac
 
 if [ "${IS_LINUX}" ]; then
-	bash ubuntu_setup_1.sh
+	bash -x ubuntu_setup_1.sh
 elif [ "${IS_CYGWIN}" ]; then
 	echo "this is cygwin"
 fi

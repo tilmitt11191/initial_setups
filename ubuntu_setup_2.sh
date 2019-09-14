@@ -70,7 +70,6 @@ case $ANSWER in
 esac
 
 LANG=C xdg-user-dirs-update --force
-$CHANGE_UBUNTU_SETTINGS && bash lib/change_ubuntu_settings.sh && echo "####Change ubuntu settings such as power plan and dock icons"
 CREATE_DIR="$HOME/tmp"
 [ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
 
@@ -80,22 +79,23 @@ CREATE_DIR="$HOME/lib"
 CREATE_DIR="$HOME/bin"
 [ ! -d $CREATE_DIR ] && echo "create_directory $CREATE_DIR" && mkdir -p $CREATE_DIR
 
-($ADD_APT_REPOSITORY && bash lib/add_apt_repositories_and_update.sh && echo "####succeed to add repositories") || (echo "####failed to add repositories; exit 1"; exit 1)
-($ADD_JAPANESE_PACKAGES && bash lib/add_japanese_packages.sh && echo "####succeed to add japanese packages") || (echo "####failed to add japanese packages; exit1" ; exit 1)
-($INSTALL_APT_PACKAGES && bash lib/install_apt_packages.sh && echo "####succeed to install apt packages") || (echo "####failed to install apt packages; exit 1"; exit 1)
-$SWAP_KEY && bash lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
-$ENABLE_HIBERNATE && bash lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
-([ $DELETE_DEFAULT_DOTFILES != "false" ] && bash lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
+($ADD_APT_REPOSITORY && bash -x lib/add_apt_repositories_and_update.sh && echo "####succeed to add repositories") || (echo "####failed to add repositories; exit 1"; exit 1)
+($ADD_JAPANESE_PACKAGES && bash -x lib/add_japanese_packages.sh && echo "####succeed to add japanese packages") || (echo "####failed to add japanese packages; exit1" ; exit 1)
+($INSTALL_APT_PACKAGES && bash -x lib/install_apt_packages.sh && echo "####succeed to install apt packages") || (echo "####failed to install apt packages; exit 1"; exit 1)
+$SWAP_KEY && bash -x lib/keyswap.sh && echo "####succeed to swap caps for ctrl"
+$ENABLE_HIBERNATE && bash -x lib/enable_hibernate.sh && echo "####succeed to enable hibernate"
+([ $DELETE_DEFAULT_DOTFILES != "false" ] && bash -x lib/create_symbolic_link.sh $DELETE_DEFAULT_DOTFILES && echo "####succeed to create symbolic links to dotfiles") || (echo "####failed to create symbolic links of dotfiles; exit 1"; exit 1)
 
 if [ "${FLAG_PYTHON}" ]; then
-	bash lib/install_python.sh
+	bash -x lib/install_python.sh
 fi
 
 if [ "${FLAG_RUBY}" ]; then
-	bash lib/install_ruby.sh
+	bash -x lib/install_ruby.sh
 fi
 
-#LANG=C xdg-user-dirs-gtk-update
+$CHANGE_UBUNTU_SETTINGS && bash -x lib/change_ubuntu_settings.sh && echo "####Change ubuntu settings such as power plan and dock icons"
+
 #sudo add-apt-repository -y -n ppa:sicklylife/ppa #for japanese
 #sudo add-apt-repository -y -n ppa:graphics-drivers/ppa #for NVIDIA Drivers
 #wget https://sicklylife.jp/ubuntu/1804/change-topbar-colon-extend_8_all.deb

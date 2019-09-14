@@ -95,6 +95,7 @@ if [ $IS_CYGWIN ]; then
 elif [ $IS_LINUX ]; then
 	conda create -ym -n  "${INSTALL_PYTHON_NAME}" python=$INSTALL_PYTHON_VERSION
 	conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python=$INSTALL_PYTHON3_VERSION
+	#ln -s $PYENV_ROOT/versions/anaconda
 
 
 cd $INITIALDIR

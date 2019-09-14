@@ -1,8 +1,13 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
-cd `dirname $0`
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
+
+
 unameOut="$(uname -s)"
 IS_CYGWIN=""
 IS_MAC=""
@@ -15,7 +20,7 @@ case "${unameOut}" in
 esac
 
 if [ $IS_LINUX ]; then
-	PACKAGES=(zsh vim git curl autossh tmux xclip gparted exfat-fuse exfat-utils net-tools golang aptitude)
+	PACKAGES=(zsh vim tree git curl autossh tmux xclip gparted exfat-fuse exfat-utils net-tools golang aptitude)
 	for package in ${PACKAGES[@]}; do
 		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
 		if [ $? -ne 0 ];then
@@ -34,5 +39,9 @@ fi
 
 
 
+
 cd $INITIALDIR
 exit 0
+
+: <<'#__CO__'
+#__CO__
