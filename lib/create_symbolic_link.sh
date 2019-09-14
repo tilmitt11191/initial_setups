@@ -1,8 +1,11 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
-cd `dirname $0`
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
 
 
 DATETIME=`date +%Y%m%d%H%M`
@@ -40,10 +43,12 @@ for file in ${DOTFILES[@]}; do
 	ln -s $HOME/.dotfiles/$file $HOME/.$file
 done
 
-BINFILES=(pushgitfiles pushgooglegit pulldotfiles)
-[ -e $HOME/bin/pushgitfiles ] && rm -rf $HOME/bin/pushgitfiles
-ln -s `pwd`/../bin/pushgitfiles $HOME/bin/
-sudo chmod +x $HOME/bin/pushgitfiles
+BINFILES=(pushgitfiles pulldotfiles)
+for file in ${BINFILES[@]}; do
+	[ -e $HOME/bin/"${file}" ] && rm -rf $HOME/bin/"${file}"
+	ln -s `pwd`/../bin/"${file}" $HOME/bin/
+	sudo chmod +x $HOME/bin/"${file}"
+done
 
 if [ ! $IS_CYGWIN ]; then
 	[ -e $HOME/bin/st ] && rm -rf $HOME/bin/st

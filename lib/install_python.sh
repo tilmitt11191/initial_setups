@@ -8,6 +8,7 @@ SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 cd $SCRIPT_DIR
 
 
+ANACONDA_VER=3-2019.07
 INSTALL_PYTHON_VERSION=2.7
 INSTALL_PYTHON_NAME=py27
 INSTALL_PYTHON3_VERSION=3.7
@@ -55,15 +56,15 @@ if [ ! -d $HOME/.pyenv ];then
 fi
 
 if [ $IS_CYGWIN ]; then
-	ANACONDA_VER=anaconda3-5.3.0
 	echo "####install anaconda $ANACONDA_VER"
 	exec $HOME/../Downloads/$ANACONDA_VER-Windows-x86_64.exe
 	echo "After finished to install Anaconda with GUI, Press any key."
 	read
 elif [ $IS_LINUX ]; then
-	ANACONDA_VER=`pyenv install -l | grep anaconda | tail -n 2 | head -n 1 | sed -e 's/^[ ]*//'`
 	echo "####install anaconda $ANACONDA_VER"
-	pyenv install $ANACONDA_VER
+	wget https://repo.anaconda.com/archive/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh -O ../tmp/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh
+	bash ../tmp/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh
+	#pyenv install $ANACONDA_VER
 fi
 
 export PYENV_ROOT="$HOME/.pyenv"

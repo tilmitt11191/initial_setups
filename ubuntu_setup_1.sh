@@ -1,9 +1,12 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
 
 echo "####`basename $0` start."
 INITIALDIR=`pwd`
 SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
 cd $SCRIPT_DIR
+
 
 gsettings set org.gnome.desktop.lockdown disable-lock-screen true
 gsettings set org.gnome.desktop.session idle-delay 0

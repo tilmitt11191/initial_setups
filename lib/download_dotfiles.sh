@@ -1,4 +1,13 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
+
+echo "####`basename $0` start."
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
+
+
 
 echo "####`basename $0` start."
 INITIALDIR=`sudo pwd`
