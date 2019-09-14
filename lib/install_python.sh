@@ -1,11 +1,18 @@
 #!/usr/bin/env bash
+# -*- coding: utf-8 -*-
+export LANG=C
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
-cd `dirname $0`
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
 
 
-INSTALL_PYTHON_VERSION=3.7
+INSTALL_PYTHON_VERSION=2.7
+INSTALL_PYTHON_NAME=py27
+INSTALL_PYTHON3_VERSION=3.7
+INSTALL_PYTHON3_NAME=py37
+
 DATETIME=`date +%Y%m%d%H%M`
 unameOut="$(uname -s)"
 IS_CYGWIN=""
@@ -21,7 +28,7 @@ esac
 
 
 echo "####install packages"
-PACKAGES=(build-essential libsm6 libxrender1)
+PACKAGES=(build-essential libsm6 libxrender1 python"${INSTALL_PYTHON_VERSION}"-dev python"${INSTALL_PYTHON3_VERSION}"-dev)
 
 if [ $IS_CYGWIN ]; then
 	for package in ${PACKAGES[@]}; do
@@ -83,8 +90,12 @@ alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
 
 
 echo "#### create python $INSTALL_PYTHON_VERSION as py$INSTALL_PYTHON_VERSION"
-[ $IS_CYGWIN ] $HOME/../Anaconda3/Scripts/conda.exe create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
-[ $IS_LINUX ] && conda create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
+if [ $IS_CYGWIN ]; then
+	$HOME/../Anaconda3/Scripts/conda.exe create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
+elif [ $IS_LINUX ]; then
+	conda create -ym -n  "${INSTALL_PYTHON_NAME}" python=$INSTALL_PYTHON_VERSION
+	conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python=$INSTALL_PYTHON3_VERSION
+
 
 cd $INITIALDIR
 exit 0

@@ -1,8 +1,9 @@
 #!/usr/bin/env bash
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
-cd `dirname $0`
+INITIALDIR=`pwd`
+SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
+cd $SCRIPT_DIR
 
 echo -n "install prezto? [Y/n] default[y]:"
 read ANSWER
@@ -37,3 +38,9 @@ read
 
 
 sudo reboot
+
+cd $INITIALDIR
+exit 0
+
+: <<'#__CO__'
+#__CO__
