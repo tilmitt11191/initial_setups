@@ -24,8 +24,6 @@ case "${unameOut}" in
 	*) echo "##this is neither Cygwin nor Linux. exit 1" && exit 1;;
 esac
 
-[ $IS_CYGWIN ] && echo "this is cygwin"
-[ $IS_LINUX ] && echo "this is linux"
 
 
 echo "####install packages"
@@ -63,7 +61,7 @@ if [ $IS_CYGWIN ]; then
 elif [ $IS_LINUX ]; then
 	echo "####install anaconda $ANACONDA_VER"
 	wget https://repo.anaconda.com/archive/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh -O ../tmp/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh
-	bash ../tmp/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh
+	bash ../tmp/Anaconda"${ANACONDA_VER}"-Linux-x86_64.sh -p $HOME/.pyenv/versions/anaconda"${ANACONDA_VER}"
 	#pyenv install $ANACONDA_VER
 fi
 
@@ -72,32 +70,35 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 eval "$(pyenv init -)"
 pyenv rehash
 
-[ -e $PYENV_ROOT/versions/anaconda ] && mv $HOME/.pyenv/versions/anaconda $HOME/.pyenv/versions/anaconda.$DATETIME
+if [ -f "${PYENV_ROOT}"/versions/anaconda -o -h "${PYENV_ROOT}"/versions/anaconda ]; then
+	mv "${PYENV_ROOT}"/versions/anaconda "${PYENV_ROOT}"/versions/anaconda.$DATETIME
+fi
 
 if [ $IS_CYGWIN ]; then
-	mkdir -p $HOME/.pyenv/versions/anaconda/
+	mkdir -p "${PYENV_ROOT}"/versions/anaconda/
 	ln -s $HOME/../Anaconda3/Scripts $HOME/.pyenv/versions/anaconda/bin
 	ln -s $HOME/../Anaconda3/envs $HOME/.pyenv/versions/anaconda/envs
 	chmod -R +rwx $HOME/.pyenv/versions/anaconda
 elif [ $IS_LINUX ]; then
-	ln -s "$PYENV_ROOT/versions/$ANACONDA_VER" $PYENV_ROOT/versions/anaconda
+	ln -s "${PYENV_ROOT}"/versions/anaconda"${ANACONDA_VER}" "${PYENV_ROOT}"/versions/anaconda
 fi
 
-export PATH="$PYENV_ROOT/versions/anaconda/bin/:$PATH"
-chmod +x $PYENV_ROOT/versions/anaconda/bin/activate
-chmod +x $PYENV_ROOT/versions/anaconda/bin/deactivate
-alias activate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/activate"
-alias deactivate-anaconda="source $PYENV_ROOT/versions/anaconda/bin/deactivate"
+export PATH="${PYENV_ROOT}"/versions/anaconda/bin/:"${PATH}"
+chmod +x "${PYENV_ROOT}"/versions/anaconda/bin/activate
+chmod +x "${PYENV_ROOT}"/versions/anaconda/bin/deactivate
+alias activate-anaconda="source ${PYENV_ROOT}/versions/anaconda/bin/activate"
+alias deactivate-anaconda="source ${PYENV_ROOT}/versions/anaconda/bin/deactivate"
 
 
-echo "#### create python $INSTALL_PYTHON_VERSION as py$INSTALL_PYTHON_VERSION"
+echo "#### create python ${INSTALL_PYTHON_VERSION} as py${INSTALL_PYTHON_VERSION}"
+echo "#### create python ${INSTALL_PYTHON3_VERSION} as py${INSTALL_PYTHON3_VERSION}"
 if [ $IS_CYGWIN ]; then
 	$HOME/../Anaconda3/Scripts/conda.exe create -ym -n  py$INSTALL_PYTHON_VERSION python=$INSTALL_PYTHON_VERSION
 elif [ $IS_LINUX ]; then
-	conda create -ym -n  "${INSTALL_PYTHON_NAME}" python=$INSTALL_PYTHON_VERSION
-	conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python=$INSTALL_PYTHON3_VERSION
-	#ln -s $PYENV_ROOT/versions/anaconda
-
+	conda create -ym -n  "${INSTALL_PYTHON_NAME}" python="${INSTALL_PYTHON_VERSION}"
+	conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python="${INSTALL_PYTHON3_VERSION}"
+	ln -s "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip3
+fi
 
 cd $INITIALDIR
 exit 0

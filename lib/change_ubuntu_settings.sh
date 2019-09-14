@@ -26,16 +26,15 @@ cat $CONFFILE | grep "vm.swappiness = [0-9]*"
 
 
 #list-recursively > ~/tmp/gsettingslist
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power button-sleep 'nothing'
-gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-type 'nothing'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power button-sleep 'nothing'
+/usr/bin/gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-battery-type 'suspend'
 
 
 echo "####set dock size $DOCKSIZE and delete unnecessary dock icons"
-gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
-gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'org.gnome.Software.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop']"
-
+/usr/bin/gsettings set org.gnome.shell.extensions.dash-to-dock dash-max-icon-size 24
+/usr/bin/gsettings set org.gnome.shell favorite-apps "['org.gnome.Terminal.desktop', 'org.gnome.DiskUtility.desktop', 'gparted.desktop', 'gnome-control-center.desktop', 'org.gnome.Software.desktop', 'org.gnome.Nautilus.desktop', 'firefox.desktop', 'gnome-system-monitor_gnome-system-monitor.desktop']"
 
 echo "####set gnome-terminal autostart"
 gnome-terminal --geometry=94*47+0+0
