@@ -1,11 +1,19 @@
 #!/usr/bin/env zsh
 
 echo "####`basename $0` start."
-INITIALDIR=`sudo pwd`
+INITIALDIR=`pwd`
 cd `dirname $0`
 
+case "${OSTYPE}" in
+	cygwin*) echo "##this is Cygwin" && IS_CYGWIN=true;;
+	darwin*) echo "##this is macos" && IS_MAC=true;;
+	linux*) echo "##this is Linux" && IS_LINUX=true;;
+	FreeBSD*) echo "##this is FreeBSD" && IS_LINUX=true;;
+	*) echo "##this is neither Cygwin nor Linux. exit 1" && exit 1;;
+esac
+
 PACKAGES=(git zsh vim)
-if [ "$(uname -a | grep Ubuntu)" ]; then
+if [ $IS_LINUX ]; then
 	for package in ${PACKAGES[@]}; do
 		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
 		if [ $? -ne 0 ];then
@@ -17,19 +25,17 @@ if [ "$(uname -a | grep Ubuntu)" ]; then
 			echo "$m"
 		fi
 	done
-fi
-
-if [ "$(uname -a | grep Cygwin)" ]; then
+elif [ $IS_CYGWIN ]; then
 	for package in ${PACKAGES[@]}; do
 		apt-cyg install $package
 	done
 fi
 
 git clone --recursive https://github.com/sorin-ionescu/prezto.git "${ZDOTDIR:-$HOME}/.zprezto"
-[ "$(uname -a | grep Cygwin)" ] && chmod -R +rwx $HOME/.zprezto
+[ $IS_CYGWIN ] && chmod -R +rwx $HOME/.zprezto
 setopt EXTENDED_GLOB
 for rcfile in "${ZDOTDIR:-$HOME}"/.zprezto/runcoms/^README.md(.N); do
-  ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
+	ln -s "$rcfile" "${ZDOTDIR:-$HOME}/.${rcfile:t}"
 done
 
 cd "${ZDOTDIR:-$HOME}"/.zprezto
