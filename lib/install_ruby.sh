@@ -5,7 +5,7 @@ INITIALDIR=`sudo pwd`
 cd `dirname $0`
 
 
-INSTALL_RUBY_VERSION=2.5.3
+INSTALL_RUBY_VERSION=2.7.1
 DATETIME=`date +%Y%m%d%H%M`
 unameOut="$(uname -s)"
 IS_CYGWIN=""

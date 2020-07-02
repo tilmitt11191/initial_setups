@@ -23,8 +23,8 @@ case $ANSWER in
 	* ) INSTALL_PREZTO=true;;
 esac
 
-echo "####install zsh and vim"
-PACKAGES=(zsh vim)
+PACKAGES=(zsh vim gcc make)
+echo "####install $PACKAGES"
 for package in ${PACKAGES[@]}; do
 	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
 	if [ $? -ne 0 ];then
