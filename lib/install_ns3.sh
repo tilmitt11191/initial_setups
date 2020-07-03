@@ -2,9 +2,7 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-echo "check sudo"
-
-BASEDIR="/usr/local/share/ns-3/"
+install_dir="/usr/local/share/ns-3/"
 ns3_ver="3.30"
 
 echo "####$(basename "$0") start."
@@ -30,29 +28,16 @@ esac
 ## check Windows Subsystem for Linux
 [ -e /proc/sys/fs/binfmt_misc/WSLInterop ] && IS_UBUNTU=true
 
-PACKAGES=(gcc g++ python python3 python3-dev python3-setuptools git mercurial qt5-default gir1.2-goocanvas-2.0 python-gi python-gi-cairo python-pygraphviz python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython ipython3 openmpi-bin openmpi-common openmpi-doc libopenmpi-dev uncrustify gsl-bin libgsl-dev libgsl23 libgslcblas0 sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev cmake libc6-dev libc6-dev-i386 libclang-6.0-dev llvm-6.0-dev automake pip libgtk2.0-0 libgtk2.0-dev vtun lxc libboost-signals-dev libboost-filesystem-dev doxygen graphviz imagemagick texlive texlive-extra-utils texlive-latex-extra texlive-font-utils texlive-lang-portuguese dvipng latexmk python3-sphinx dia)
 
-if [ $IS_UBUNTU ]; then
-	for package in "${PACKAGES[@]}"; do
-		dpkg -l "$package" | grep -E "^i.+[ \t]+$package" > /dev/null
-		if [ $? -ne 0 ];then
-			m="$package not installed. sudo apt install -y $package."
-			echo "$m"
-			apt install -y "$package"
-		else
-			m="$package already installed."
-			echo "$m"
-		fi
-	done
-fi
+sudo install_ns3_pkgs.sh
 
 #PACKAGES=(cxxfilt)
 #python3 -m pip install --user cxxfilt
 
 if [ $IS_UBUNTU ]; then
-    if [ ! -e $BASEDIR ]; then
-        echo "$BASEDIR not exist. create dir"
-        sudo mkdir -p $BASEDIR
+    if [ ! -e "$install_dir" ]; then
+        echo "$install_dir not exist. create dir"
+        mkdir -p "$install_dir" || exit
     fi
 fi
 
