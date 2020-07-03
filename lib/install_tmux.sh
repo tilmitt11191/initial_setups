@@ -2,28 +2,32 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-echo "####`basename $0` start."
-INITIALDIR=`pwd`
-SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
-cd $SCRIPT_DIR
-
 libevent_ver="2.1.11-stable"
 ncurses_ver="6.1"
 tmux_ver=2.8
 
-unameOut="$(uname -s)"
+echo "####$(basename "$0") start."
+INITIALDIR=$(pwd)
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE:-$0}")" || exit; pwd)
+cd "$SCRIPT_DIR" || exit
+
+unameOut="$(uname -a)"
 IS_CYGWIN=""
 IS_MAC=""
 IS_LINUX=""
-case "${unameOut}" in
+IS_UBUNTU=""
+case "$unameOut" in
 	CYGWIN*) echo "##this is Cygwin" && IS_CYGWIN=true;;
 	Darwin*) echo "##this is macos" && IS_MAC=true;;
 	Linux*) echo "##this is Linux" && IS_LINUX=true;;
 	FreeBSD*) echo "##this is Linux" && IS_LINUX=true;;
 	*) echo "##this is neither Cygwin nor Linux. exit 1" && exit 1;;
 esac
+case "$unameOut" in
+	*Ubuntu*) echo "##this is Ubuntu" && IS_UBUNTU=true;;
+esac
 
-if [ "${IS_LINUX}" ]; then
+if [ "${IS_UBUNTU}" ]; then
 	## install libevent
 	# cd $SCRIPT_DIR
 	# wget https://github.com/libevent/libevent/releases/download/release-"${libevent_ver}"/libevent-"${libevent_ver}".tar.gz -O ../tmp/libevent-"${libevent_ver}".tar.gz
@@ -45,20 +49,21 @@ if [ "${IS_LINUX}" ]; then
 	# make install
 
 	## install tmux
-	cd $SCRIPT_DIR
+	cd "$SCRIPT_DIR" || exit
 	wget https://github.com/tmux/tmux/releases/download/"${tmux_ver}"/tmux-"${tmux_ver}".tar.gz -O ../tmp/tmux-"${tmux_ver}".tar.gz
-	cd ../tmp/
+	cd ../tmp/ || exit
 	tar -zxvf tmux-"${tmux_ver}".tar.gz
-	cd tmux-"${tmux_ver}"
-	PKG_CONFIG_PATH=${HOME}/local/lib/pkgconfig ./configure --prefix=${HOME}/local --enable-static LDFLAGS="-L${HOME}/local/lib" CFLAGS="-I${HOME}/local/include"
+	cd tmux-"${tmux_ver}" || exit
+	PKG_CONFIG_PATH=${HOME}/local/lib/pkgconfig ./configure --prefix="${HOME}"/local --enable-static LDFLAGS="-L${HOME}/local/lib" CFLAGS="-I${HOME}/local/include"
 	make && make install
 
 elif [ "${IS_CYGWIN}" ]; then
 	echo "this is cygwin"
 fi
 
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
-cd $INITIALDIR
+cd "$INITIALDIR" || exit
 exit 0
 
 : <<'#__CO__'
