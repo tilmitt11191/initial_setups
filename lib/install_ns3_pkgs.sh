@@ -2,11 +2,6 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-echo "check sudo"
-
-BASEDIR="/usr/local/share/ns-3/"
-ns3_ver="3.30"
-
 echo "####$(basename "$0") start."
 INITIALDIR=$(pwd)
 SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE:-$0}")" || exit; pwd)
@@ -30,6 +25,9 @@ esac
 ## check Windows Subsystem for Linux
 [ -e /proc/sys/fs/binfmt_misc/WSLInterop ] && IS_UBUNTU=true
 
+echo "if ubuntu check sudo"
+
+: <<'#__CO__'
 PACKAGES=(gcc g++ python python3 python3-dev python3-setuptools git mercurial qt5-default gir1.2-goocanvas-2.0 python-gi python-gi-cairo python-pygraphviz python3-gi python3-gi-cairo python3-pygraphviz gir1.2-gtk-3.0 ipython ipython3 openmpi-bin openmpi-common openmpi-doc libopenmpi-dev uncrustify gsl-bin libgsl-dev libgsl23 libgslcblas0 sqlite sqlite3 libsqlite3-dev libxml2 libxml2-dev cmake libc6-dev libc6-dev-i386 libclang-6.0-dev llvm-6.0-dev automake pip libgtk2.0-0 libgtk2.0-dev vtun lxc libboost-signals-dev libboost-filesystem-dev doxygen graphviz imagemagick texlive texlive-extra-utils texlive-latex-extra texlive-font-utils texlive-lang-portuguese dvipng latexmk python3-sphinx dia)
 
 if [ $IS_UBUNTU ]; then
@@ -45,18 +43,9 @@ if [ $IS_UBUNTU ]; then
 		fi
 	done
 fi
+#__CO__
 
-#PACKAGES=(cxxfilt)
-#python3 -m pip install --user cxxfilt
-
-if [ $IS_UBUNTU ]; then
-    if [ ! -e $BASEDIR ]; then
-        echo "$BASEDIR not exist. create dir"
-        sudo mkdir -p $BASEDIR
-    fi
-fi
-
-cd $INITIALDIR
+cd "$INITIALDIR" || exit 1
 exit 0
 
 : <<'#__CO__'
