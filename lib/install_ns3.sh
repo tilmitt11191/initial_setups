@@ -2,8 +2,9 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-install_dir="$HOME/program/ns-3/"
+install_dir="$HOME/program/ns-3"
 ns3_ver="3.31"
+PyBindGen_ver="0.21.0"
 
 echo "####$(basename "$0") start."
 INITIALDIR=$(pwd)
@@ -43,32 +44,43 @@ esac
 
 sudo bash install_ns3_pkgs.sh
 
-PACKAGES=(cxxfilt)
+PACKAGES=(cxxfilt pygccxml sphinx ipython pygraphviz)
 for package in "${PACKAGES[@]}"; do
 	pip3 install "$package"
+	/usr/bin/pip3 install "$package"
 done
 
 if [ $IS_UBUNTU ]; then
     if [ ! -e "$install_dir" ]; then
         echo "$install_dir does not exist. create dir"
-        mkdir -p "$install_dir" || echo "cannot create $install_dir. exit" && exit 1
+        mkdir -p "$install_dir" || (echo "cannot create $install_dir. exit" && exit 1)
     fi
 fi
 
 cd "$install_dir" || exit 1
-mkdir workspace
+[ ! -e workspace ] && mkdir workspace
 cd workspace || exit 1
-git clone https://gitlab.com/nsnam/ns-3-allinone.git
+[ ! -e ns-3-allinone ] && git clone https://gitlab.com/nsnam/ns-3-allinone.git
 cd ns-3-allinone || exit 1
-python3 download.py -n "ns-$ns3_ver"
-mv "ns-$ns3_ver" "$install_dir/"
+if [ ! -e  "$install_dir/ns-$ns3_ver" ]; then
+	python3 download.py -n "ns-$ns3_ver"
+	ls -al
+	ln -s "$(pwd)/ns-$ns3_ver" "$install_dir/"
+fi
+
+[ ! -e "PyBindGen-$PyBindGen_ver.tar.gz" ] && wget "https://files.pythonhosted.org/packages/1e/36/efb8a7a361f7722e175c023408b1999241eca3c3a9bd469a5727e7d219f0/PyBindGen-$PyBindGen_ver.tar.gz"
+[ ! -e "PyBindGen-$PyBindGen_ver" ] && tar -zxvf "PyBindGen-$PyBindGen_ver.tar.gz"
+sed -i -e "s/version = '0.20.0'/version = '$PyBindGen_ver'/" pybindgen/pybindgen/version.py
+
 cd "$install_dir/ns-$ns3_ver/" || exit 1
-
-
-
-./waf clean
-./waf configure --build-profile=debug --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.20.0  --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow
+./waf --python=/usr/bin/python3 configure --with-pybindgen="$install_dir/workspace/ns-3-allinone/pybindgen"
+## for test
 ./waf build
+./waf --run first --vis
+
+# ./waf clean
+# ./waf configure --build-profile=debug --enable-examples --enable-tests --with-pybindgen=../PyBindGen-0.20.0  --with-nsclick=../click --with-brite=../BRITE --with-openflow=../openflow
+# ./waf build
 
 cd "$INITIALDIR" || exit 1
 exit 0
