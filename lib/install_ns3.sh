@@ -122,6 +122,7 @@ make
 cd "$install_dir/ns-$ns3_ver/" || exit 1
 ./waf clean
 ./waf configure --python=/usr/bin/python3 --build-profile=debug --enable-examples --enable-tests  --with-pybindgen="$allinone_dir/pybindgen"  --with-nsclick="$allinone_dir/click" --with-brite="$allinone_dir/BRITE"
+# ./waf configure --python=/usr/bin/python3 --build-profile=debug --enable-examples --enable-tests  --with-pybindgen="/home/ozu/program/ns-3/workspace/ns-3-allinone/pybindgen"  --with-nsclick="/home/ozu/program/ns-3/workspace/ns-3-allinone/click" --with-brite="/home/ozu/program/ns-3/workspace/ns-3-allinone/BRITE"
 ./waf build
 
 cd "$INITIALDIR" || exit 1
