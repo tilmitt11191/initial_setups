@@ -84,6 +84,13 @@ cd "$allinone_dir/" || exit 1
 cd BRITE || exit 1
 make
 
+cd "$allinone_dir/" || exit 1
+[ ! -e netanim ] && hg clone http://code.nsnam.org/netanim
+cd netanim || exit 1
+make clean
+qmake NetAnim.pro
+make
+
 # cd "$allinone_dir/" || exit 1
 # [ ! -e openflow ] && hg clone http://code.nsnam.org/openflow
 # cd openflow || exit 1
@@ -122,7 +129,7 @@ make
 cd "$install_dir/ns-$ns3_ver/" || exit 1
 ./waf clean
 ./waf configure --python=/usr/bin/python3 --build-profile=debug --enable-examples --enable-tests -d optimized --with-pybindgen="$allinone_dir/pybindgen"  --with-nsclick="$allinone_dir/click" --with-brite="$allinone_dir/BRITE"
-./waf configure --python=/usr/bin/python3 --build-profile=debug --enable-examples --enable-tests -d optimized --with-pybindgen="/home/ozu/program/ns-3/workspace/ns-3-allinone/pybindgen"  --with-nsclick="/home/ozu/program/ns-3/workspace/ns-3-allinone/click" --with-brite="/home/ozu/program/ns-3/workspace/ns-3-allinone/BRITE"
+# ./waf configure --python=/usr/bin/python3 --build-profile=debug --enable-examples --enable-tests -d optimized --with-pybindgen="/home/ozu/program/ns-3/workspace/ns-3-allinone/pybindgen" --with-nsclick="/home/ozu/program/ns-3/workspace/ns-3-allinone/click" --with-brite="/home/ozu/program/ns-3/workspace/ns-3-allinone/BRITE"
 ./waf build
 
 cd "$INITIALDIR" || exit 1
