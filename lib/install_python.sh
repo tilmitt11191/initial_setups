@@ -2,19 +2,18 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-echo "####`basename $0` start."
-INITIALDIR=`pwd`
-SCRIPT_DIR=$(cd $(dirname ${BASH_SOURCE:-$0}); pwd)
-cd $SCRIPT_DIR
-
-
 ANACONDA_VER=3-2019.07
 INSTALL_PYTHON_VERSION=2.7
 INSTALL_PYTHON_NAME=py27
 INSTALL_PYTHON3_VERSION=3.7
 INSTALL_PYTHON3_NAME=py37
 
-DATETIME=`date +%Y%m%d%H%M`
+echo "####$(basename "$0") start."
+INITIALDIR=$(pwd)
+SCRIPT_DIR=$(cd "$(dirname "${BASH_SOURCE:-$0}")" || exit 1; pwd)
+cd "$SCRIPT_DIR" || exit 1
+
+DATETIME="$(date +%Y%m%d%H%M)"
 unameOut="$(uname -s)"
 IS_CYGWIN=""
 IS_LINUX=""
@@ -30,17 +29,17 @@ echo "####install packages"
 PACKAGES=(build-essential libsm6 libxrender1 python"${INSTALL_PYTHON_VERSION}"-dev python"${INSTALL_PYTHON3_VERSION}"-dev)
 
 if [ $IS_CYGWIN ]; then
-	for package in ${PACKAGES[@]}; do
-		echo "install $pcakage"
-		apt-cyg install $package 2>&1 >/dev/null
+	for package in "${PACKAGES[@]}"; do
+		echo "install $package"
+		apt-cyg install "$package" 2>&1 >/dev/null
 	done
 elif [ $IS_LINUX ]; then
-	for package in ${PACKAGES[@]}; do
-		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
+	for package in "${PACKAGES[@]}"; do
+		dpkg -l "$package" | grep -E "^i.+[ \t]+$package" > /dev/null
 		if [ $? -ne 0 ];then
 			m="$package not installed. sudo apt install -y $package."
 			echo "$m"
-			sudo apt install -y $package
+			sudo apt install -y "$package"
 		else
 			m="$package already installed."
 			echo "$m"
@@ -100,7 +99,7 @@ elif [ $IS_LINUX ]; then
 	ln -s "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip3
 fi
 
-cd $INITIALDIR
+cd "$INITIALDIR" || exit 1
 exit 0
 
 : <<'#__CO__'
