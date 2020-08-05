@@ -4,3 +4,6 @@
 
 /tmp/*
 !/tmp/.gitkeep
+
+/lib/tmp/*
+!/lib/tmp/.gitkeep

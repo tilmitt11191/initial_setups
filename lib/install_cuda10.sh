@@ -24,6 +24,7 @@ esac
 
 
 cd ../tmp/
+
 sudo dpkg -i cuda-repo-ubuntu1804_10.0.130-1_amd64.deb
 sudo dpkg -i libcudnn7_7.6.0.64-1+cuda10.0_amd64.deb
 sudo dpkg -i libcudnn7-dev_7.6.0.64-1+cuda10.0_amd64.deb
