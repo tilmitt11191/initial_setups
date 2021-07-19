@@ -26,7 +26,8 @@ PACKAGES=(\
 	google-chrome-stable=91.0.4472.164-1 \
 	language-pack-ja-base \
 	language-pack-ja \
-	ibus-kkc
+	ibus-kkc \
+	gparted \
 )
 echo "####install PACKAGES [${PACKAGES[*]}]"
 for package in "${PACKAGES[@]}"; do

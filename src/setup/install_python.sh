@@ -16,6 +16,7 @@ if [ $# -ne 3 ]; then
 	exit 1
 fi
 
+# ANACONDA_VER=3-2021.04
 ANACONDA_VER=3-2021.05
 INSTALL_PYTHON_VERSION=2.7
 INSTALL_PYTHON_NAME=py27
@@ -27,7 +28,15 @@ DIR_TMP=$3
 sudo apt update || exit 1
 sudo apt upgrade -y || exit 1
 
-PACKAGES=(git build-essential libsm6 libxrender1 python"${INSTALL_PYTHON_VERSION}"-dev python"${INSTALL_PYTHON3_VERSION}"-dev)
+PACKAGES=(\
+	git \
+	build-essential \
+	libsm6 \
+	libxrender1 \
+	python \
+	python"${INSTALL_PYTHON_VERSION}"-dev \
+	python"${INSTALL_PYTHON3_VERSION}"-dev \
+)
 echo "####install PACKAGES [${PACKAGES[*]}]"
 for package in "${PACKAGES[@]}"; do
 	dpkg -l "$package" | grep -E "^i.+[ \t]+$package" > /dev/null
@@ -54,7 +63,7 @@ else
 	wget "https://repo.anaconda.com/archive/Anaconda${ANACONDA_VER}-Linux-x86_64.sh" -O "${DIR_TMP}/Anaconda${ANACONDA_VER}-Linux-x86_64.sh" || exit 1
 fi
 [ -d "${HOME}/.pyenv/versions/anaconda${ANACONDA_VER}" ] && rm -rf "${HOME}/.pyenv/versions/anaconda${ANACONDA_VER}"
-bash "${DIR_TMP}/Anaconda${ANACONDA_VER}-Linux-x86_64.sh" -p "${HOME}/.pyenv/versions/anaconda${ANACONDA_VER}" || exit 1
+bash "${DIR_TMP}/Anaconda${ANACONDA_VER}-Linux-x86_64.sh" -p "${HOME}/.pyenv/versions/anaconda${ANACONDA_VER}" || echo "failed to bash ${DIR_TMP}/Anaconda${ANACONDA_VER}-Linux-x86_64.sh -p ${HOME}/.pyenv/versions/anaconda${ANACONDA_VER}. exit 1" && exit 1
 
 
 export PYENV_ROOT="${HOME}/.pyenv"
@@ -64,10 +73,10 @@ pyenv rehash || echo "failed to pyenv rehash. exit 1" && exit 1
 
 DATETIME="$(date +%Y%m%d%H%M)"
 if [ -f "${PYENV_ROOT}/versions/anaconda" ] || [ -h "${PYENV_ROOT}/versions/anaconda" ]; then
-	mv "${PYENV_ROOT}"/versions/anaconda "${PYENV_ROOT}/versions/anaconda.${DATETIME}" || exit 1
+	mv "${PYENV_ROOT}"/versions/anaconda "${PYENV_ROOT}/versions/anaconda.${DATETIME}" || echo "failed to mv" && exit 1
 fi
 
-ln -s "${PYENV_ROOT}"/versions/anaconda"${ANACONDA_VER}" "${PYENV_ROOT}"/versions/anaconda || exit 1
+ln -s "${PYENV_ROOT}"/versions/anaconda"${ANACONDA_VER}" "${PYENV_ROOT}"/versions/anaconda || echo "failed to ln -s" && exit 1
 
 export PATH="${PYENV_ROOT}"/versions/anaconda/bin/:"${PATH}"
 chmod +x "${PYENV_ROOT}"/versions/anaconda/bin/activate
@@ -77,9 +86,9 @@ alias deactivate-anaconda="source ${PYENV_ROOT}/versions/anaconda/bin/deactivate
 
 
 echo "#### create python ${INSTALL_PYTHON_VERSION} as py${INSTALL_PYTHON_VERSION}"
-conda create -ym -n  "${INSTALL_PYTHON_NAME}" python="${INSTALL_PYTHON_VERSION}" || exit 1
+conda create -ym -n  "${INSTALL_PYTHON_NAME}" python="${INSTALL_PYTHON_VERSION}" || echo "failed to conda create -ym -n  ${INSTALL_PYTHON_NAME} python=${INSTALL_PYTHON_VERSION}. exit 1" && exit 1
 echo "#### create python ${INSTALL_PYTHON3_VERSION} as py${INSTALL_PYTHON3_VERSION}"
-conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python="${INSTALL_PYTHON3_VERSION}" || exit 1
+conda create -ym -n  "${INSTALL_PYTHON3_NAME}" python="${INSTALL_PYTHON3_VERSION}" || echo "failed to conda create -ym -n  ${INSTALL_PYTHON3_NAME} python=${INSTALL_PYTHON3_VERSION}. exit 1" && exit 1
 # ln -s "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip "${PYENV_ROOT}"/versions/anaconda/envs/"${INSTALL_PYTHON3_NAME}"/bin/pip3
 
 
