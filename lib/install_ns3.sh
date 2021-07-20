@@ -2,9 +2,9 @@
 # -*- coding: utf-8 -*-
 export LANG=C
 
-install_dir="$HOME/program/ns-3"
+install_dir="$HOME/program/validation/ns-3"
 allinone_dir="$install_dir/workspace/ns-3-allinone"
-ns3_ver="3.31"
+ns3_ver="3.30"
 PyBindGen_ver="0.21.0"
 
 echo "####$(basename "$0") start."
@@ -97,25 +97,25 @@ make
 # ./waf configure
 # ./waf build
 
-# cd "$install_dir/ns-$ns3_ver/" || exit 1
-# ./waf --python=/usr/bin/python3 configure --with-pybindgen="$allinone_dir/pybindgen"
+cd "$install_dir/ns-$ns3_ver/" || exit 1
+./waf --python=/usr/bin/python3 configure --with-pybindgen="$allinone_dir/pybindgen"
 ## PyViz visualizer: enabled
 ## Python Bindings :enabled
 
-# cd "$install_dir/ns-$ns3_ver" || exit 1
-# ./waf --python=/usr/bin/python3  configure --enable-examples --enable-tests --with-nsclick="$allinone_dir/click"
+cd "$install_dir/ns-$ns3_ver" || exit 1
+./waf --python=/usr/bin/python3  configure --enable-examples --enable-tests --with-nsclick="$allinone_dir/click"
 ## NS-3 Click Integration        : enabled
 # ./waf build
 # ./waf --run nsclick-simple-lan
 
-# cd "$install_dir/ns-$ns3_ver" || exit 1
-# ./waf configure --enable-examples --enable-tests --with-brite="$allinone_dir/BRITE"
+cd "$install_dir/ns-$ns3_ver" || exit 1
+./waf configure --enable-examples --enable-tests --with-brite="$allinone_dir/BRITE"
 ## BRITE Integration             : enabled
 # ./waf build
 # ./waf --run brite-generic-example
 
-# cd "$install_dir/ns-$ns3_ver" || exit 1
-# ./waf configure --enable-examples --enable-tests --with-openflow="$allinone_dir/openflow"
+#cd "$install_dir/ns-$ns3_ver" || exit 1
+#./waf configure --enable-examples --enable-tests --with-openflow="$allinone_dir/openflow"
 # # NS-3 OpenFlow Integration     : enabled
 # ./waf build
 
