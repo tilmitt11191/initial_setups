@@ -1,5 +1,5 @@
-mkdir -p $HOME/lib && git clone https://github.com/tilmitt11191/initial_setups $HOME/lib/initial_setups  
-bash -x $HOME/lib/initial_setups/install.sh  
+mkdir -p $HOME/program/initial_setups && git clone https://github.com/tilmitt11191/initial_setups $HOME//program/initial_setups  
+bash -x $HOME//program/initial_setups/install.sh  
 
 if use VirtualBox,  
 sudo apt install -y gcc make perl  

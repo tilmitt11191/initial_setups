@@ -61,6 +61,8 @@ elif [ "${IS_CYGWIN}" ]; then
 	echo "this is cygwin"
 fi
 
+CREATE_DIR="$HOME/.tmux"
+[ ! -d "${CREATE_DIR}" ] && echo "create_directory ${CREATE_DIR}" && mkdir -p "${CREATE_DIR}"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 cd "$INITIALDIR" || exit
