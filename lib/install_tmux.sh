@@ -67,7 +67,7 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 CREATE_DIR="$HOME/bin"
 [ ! -d "${CREATE_DIR}" ] && echo "create_directory ${CREATE_DIR}" && mkdir -p "${CREATE_DIR}"
-ln -s "${SCRIPT_DIR}"
+ln -s "${SCRIPT_DIR}/../etc/tmux-pane-border" "$HOME/bin/tmux-pane-border"
 
 
 cd "$INITIALDIR" || exit
