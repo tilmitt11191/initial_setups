@@ -65,6 +65,11 @@ CREATE_DIR="$HOME/.tmux"
 [ ! -d "${CREATE_DIR}" ] && echo "create_directory ${CREATE_DIR}" && mkdir -p "${CREATE_DIR}"
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
+CREATE_DIR="$HOME/bin"
+[ ! -d "${CREATE_DIR}" ] && echo "create_directory ${CREATE_DIR}" && mkdir -p "${CREATE_DIR}"
+ln -s "${SCRIPT_DIR}"
+
+
 cd "$INITIALDIR" || exit
 exit 0
 
