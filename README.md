@@ -1,4 +1,4 @@
-mkdir -p $HOME/program/initial_setups && git clone https://github.com/tilmitt11191/initial_setups $HOME//program/initial_setups  
+mkdir -p $HOME/program/initial_setups && git clone https://github.com/tilmitt11191/initial_setups $HOME/program/initial_setups  
 bash -x $HOME//program/initial_setups/install.sh  
 
 if use VirtualBox,  

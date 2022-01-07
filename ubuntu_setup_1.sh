@@ -23,7 +23,7 @@ case $ANSWER in
 	* ) INSTALL_PREZTO=true;;
 esac
 
-PACKAGES=(zsh vim gcc make)
+PACKAGES=(zsh vim gcc make cifs-utils)
 echo "####install $PACKAGES"
 for package in ${PACKAGES[@]}; do
 	dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null

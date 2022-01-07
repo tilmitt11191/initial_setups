@@ -35,7 +35,7 @@ else
 	bash ./download_dotfiles.sh
 fi
 
-DOTFILES=(zshrc vimrc vim tmux.conf tmux zpreztorc zlogout)
+DOTFILES=(zshrc vimrc vim tmux.conf zpreztorc zlogout)
 for file in ${DOTFILES[@]}; do
 	[ $1 == "backup" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
 	[ $1 == "no" ] && [ -e $HOME/.$file ] && cp -r $HOME/.$file $HOME/."$file".$DATETIME
@@ -43,7 +43,7 @@ for file in ${DOTFILES[@]}; do
 	ln -s $HOME/.dotfiles/$file $HOME/.$file
 done
 
-BINFILES=(pushgitfiles pulldotfiles)
+BINFILES=(pushgitfiles pulldotfiles tmux-pane-border)
 for file in ${BINFILES[@]}; do
 	[ -e $HOME/bin/"${file}" ] && rm -rf $HOME/bin/"${file}"
 	ln -s `pwd`/../bin/"${file}" $HOME/bin/
