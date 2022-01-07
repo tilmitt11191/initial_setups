@@ -43,7 +43,7 @@ for file in ${DOTFILES[@]}; do
 	ln -s $HOME/.dotfiles/$file $HOME/.$file
 done
 
-BINFILES=(pushgitfiles pulldotfiles tmux-pane-border)
+BINFILES=(pushgitfiles pulldotfiles)
 for file in ${BINFILES[@]}; do
 	[ -e $HOME/bin/"${file}" ] && rm -rf $HOME/bin/"${file}"
 	ln -s `pwd`/../bin/"${file}" $HOME/bin/
