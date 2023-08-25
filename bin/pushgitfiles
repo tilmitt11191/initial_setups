@@ -3,7 +3,8 @@
 MESSAGE=$1
 
 if [ -z "$MESSAGE" ];then
-    MESSAGE="$HOSTNAME_$(date '+%Y%m%d-%H%M%S')"
+    # MESSAGE="$HOSTNAME_$(date '+%Y%m%d-%H%M%S')"
+    MESSAGE="$(date '+%Y%m%d-%H%M%S')"
 fi
 
 echo "git add ."
