@@ -20,7 +20,7 @@ case "${unameOut}" in
 esac
 
 if [ $IS_LINUX ]; then
-	PACKAGES=(zsh vim tree git curl ssh autossh tmux xclip gparted exfat-fuse exfat-utils net-tools golang aptitude)
+	PACKAGES=(zsh vim tree git curl ssh autossh tmux xclip gparted exfat-fuse exfat-utils net-tools golang aptitude ubuntu-restricted-extras)
 	for package in ${PACKAGES[@]}; do
 		dpkg -l $package | grep -E "^i.+[ \t]+$package" > /dev/null
 		if [ $? -ne 0 ];then
